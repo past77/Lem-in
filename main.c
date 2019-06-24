@@ -69,24 +69,24 @@ int				find_comments(t_lemin *lem, char **s)
 			|| !ft_strcmp(*s, "##end")) && lem->ants == NULL)
 			errors('c', lem);
 		ft_printf("%s\n", *s);
+		free(*s);
 		len = get_next_line(0, s);
 	}
 	lem->ants = *s;
 	if (lem->ants != NULL)
 		helper(lem);
 	helper2(len, s, lem);
-	while (len > 0 && *s && (((*s)[0] == '#' && (*s)[1] != '#') ||
-		((*s)[0] == '#' && (*s)[1] == '#' &&
-		ft_strcmp(*s, "##start") && ft_strcmp(*s, "##end"))))
+	while (len > 0 && *s && (((*s)[0] == '#' && (*s)[1] != '#') || ((*s)[0] ==
+'#' && (*s)[1] == '#' && ft_strcmp(*s, "##start") && ft_strcmp(*s, "##end"))))
 	{
 		ft_lstadd(&lem->lst_input, ft_lstnew_link(*s, 8));
-		*s = NULL;
+		ft_strdel(s);
 		len = get_next_line(0, s);
 	}
 	return (len > 0);
 }
 
-t_lis			*read_data(t_lemin *lem, t_lis *lst, t_ways *ways)
+void			*read_data(t_lemin *lem, t_ways *ways)
 {
 	char		*sigh;
 
@@ -112,29 +112,44 @@ t_lis			*read_data(t_lemin *lem, t_lis *lst, t_ways *ways)
 		parse_room(sigh, lem);
 		free(sigh);
 	}
-	return (lst);
+	return (0);
 }
 
 int				main(void)
 {
 	t_lemin		*lem;
 	t_ways		ways;
-	t_lis		*lst;
+	// t_list		*lst;
+	// int 		i;
 
-	lst = NULL;
+	//i = 0;
 	lem = ft_memalloc(sizeof(t_lemin));
 	init_lem(lem, &ways);
-	read_data(lem, lst, &ways);
+	read_data(lem, &ways);
 	if (ways.end == NULL || ways.start == NULL)
 		errors('l', lem);
+	dublic_room(lem);
+	// while(lem->r)
+	// {
+	// 	lst = lem->r;
+	// 	while(lst)
+	// 	{
+	// 		if (!ft_strcmp(lst->content, lem->r->content))
+	// 		{
+	// 			i++;
+	// 			if (i == 2)
+	// 				errors('d', lem);
+	// 		}
+	// 		lst = lst->next;
+	// 	}
+	// 	i = 0;
+	// 	lem->r = lem->r->next;
+	// }
 	ways.start->num_ants = lem->num_ants;
 	start_bfc(ways.start, ways.end, lem, &ways);
 	start_b(ways.end, ways.start, lem, &ways);
 	middle_al_bfc(lem);
 	print_results(lem, &ways);
 	del_rooms(lem);
-	//free(lem->cros);
-	//delete_everything(lem);
-	system("leaks lem-in");
 	return (0);
 }

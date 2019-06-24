@@ -15,42 +15,35 @@
 void		errors(char c, t_lemin *lem)
 {
 	if (c == 'm')
-		ft_printf("{red}%s\n", "ERROR, maps" );
+		ft_printf("{red}%s\n", "ERROR, maps");
 	else if (c == 'a')
-		ft_printf("{red}%s\n", "ERROR, ants" );
+		ft_printf("{red}%s\n", "ERROR, ants");
 	else if (c == 'i')
-		ft_printf("{red}%s\n", "ERROR, incorrect input" );
-	else if(c == 'l')
-		ft_printf("{red}%s\n", "ERROR, link" );
+		ft_printf("{red}%s\n", "ERROR, incorrect input");
+	else if (c == 'l')
+		ft_printf("{red}%s\n", "ERROR, link");
 	else if (c == 's')
-		ft_printf("{red}%s\n", "ERROR, same" );
+		ft_printf("{red}%s\n", "ERROR, same");
 	else if (c == 'r')
-		ft_printf("{red}%s\n", "ERROR, rooms" );
-	else if (c =='n')
-		ft_printf("{red}%s\n", "ERROR, numbers" );
+		ft_printf("{red}%s\n", "ERROR, rooms");
+	else if (c == 'n')
+		ft_printf("{red}%s\n", "ERROR, numbers");
 	else if (c == 'c')
-		ft_printf("{red}%s\n", "ERROR, comments!" );
+		ft_printf("{red}%s\n", "ERROR, comments!");
 	else if (c == 'e')
-		ft_printf("{red}%s\n", "ERROR, end" );
+		ft_printf("{red}%s\n", "ERROR, end");
 	else if (c == 'p')
-		ft_printf("{red}%s\n", "ERROR" );
+		ft_printf("{red}%s\n", "ERROR");
+		else if (c == 'd')
+		ft_printf("{red}%s\n", "ERROR, dublicate rooms");
 	delete_everything(lem);
-	system("leaks lem-in");
-	exit (-1);
-}
-void		ft_required(t_lemin *lem)
-{
-	char *str;
-
-	str = ft_strsub(lem->ants, 39, 3);
-	lem->req = ft_atoi(str);
-	free(str);
+	exit(-1);
 }
 
 void		lem_del_node(void *el, size_t len)
 {
-	t_lemin		*elem;
-	int			len1;
+	t_lemin	*elem;
+	int		len1;
 
 	len1 = len;
 	elem = (t_lemin *)el;
@@ -62,25 +55,23 @@ void		lem_del_node(void *el, size_t len)
 	}
 }
 
-void	delete_everything(t_lemin *lem)
+void		delete_everything(t_lemin *lem)
 {
 	t_list	*list;
 
 	ft_lstdel(&lem->room, lem_del_node);
 	ft_lstdel(&lem->all_ways, NULL);
 	ft_lstdel(&lem->room, NULL);
-	free(lem->ants);
-	 list = lem->lst_input;
-	while (list) 
+	list = lem->lst_input;
+	while (list)
 	{
-		//free(list->content);
 		lem->lst_input = list->next;
 		free(list);
 		list = lem->lst_input;
 	}
 }
 
-void	ft_lstdelone2(t_list **alst, void (*del)(void *, size_t))
+void		ft_lstdelone2(t_list **alst, void (*del)(void *, size_t))
 {
 	if (!alst || !*alst)
 		return ;
@@ -90,7 +81,7 @@ void	ft_lstdelone2(t_list **alst, void (*del)(void *, size_t))
 	*alst = NULL;
 }
 
-void	ft_lstdel2(t_list **alst, void (*del)(void *, size_t))
+void		ft_lstdel2(t_list **alst, void (*del)(void *, size_t))
 {
 	t_list	*old;
 
@@ -104,5 +95,3 @@ void	ft_lstdel2(t_list **alst, void (*del)(void *, size_t))
 	}
 	*alst = NULL;
 }
-
-

@@ -12,20 +12,6 @@
 
 #include "lem_in.h"
 
-void			kill_all_the_ants(t_ant *a)
-{
-	t_ant		*c;
-	t_ant		*n;
-
-	c = a;
-	while (c)
-	{
-		n = c->next;
-		free(c);
-		c = n;
-	}
-}
-
 static t_ant	*new_ant(void)
 {
 	t_ant		*new;
@@ -77,50 +63,39 @@ t_ant			*make_list(t_lemin *lem)
 	return (ant);
 }
 
+void			clean_print(t_ant *ant, int total)
+{
+	kill_ants(ant);
+	ft_printf("{n}\n");
+	ft_printf("{magenta}TOTAL LEN OF PATHS : %d\n", total);
+	ft_printf("{n}\n");
+}
+
 void			print_ants(t_lemin *lem, t_ways *ways, int sum_paths, int *ln)
 {
 	t_ant		*ant;
-	static int	total = 1;
-	static int	total2 = 0;
-	t_ant		*ant2;
-	int *ln2;
-	ln2 = ln;
-	int dif;
+	static int	total = 0;
+	int			t;
+	int			dif;
 
-	total = 0;
 	ant = make_list(lem);
-	ant2 = make_list(lem);
-	ft_putchar('\n');
-	lem->started = lem->num_ants;
-	while (lem->finish < lem->num_ants)
-	{
-		if (total2)
-			move_along_super(lem, ant2, ln2);
-		if (lem->started > 0)
-			first_move_super(lem, ant2, sum_paths, ln2);
-		total2++;
-	}
-	lem->finish = 0;
-	lem->started = lem->num_ants;
-	dif = total2 - lem->req;
+	t = super_func(ln, lem, sum_paths);
+	dif = t - lem->req;
 	while (lem->finish < lem->num_ants)
 	{
 		if (total)
 			move_along(lem, ant, ln, ways);
 		if (lem->started > 0)
 			first_move(lem, ant, sum_paths, ln);
-		if((total > total2/2 - dif/2) && (total < total2/2 + dif/2))
+		if (lem->req > 50 && (total > t / 2 - dif / 2) && (total < t / 2 + dif / 2))
 		{
-		if (total)
-			move_along_super(lem, ant, ln);
-		if (lem->started > 0)
-			first_move_super(lem, ant, sum_paths, ln);
+			if (total)
+				move_along_super(lem, ant, ln);
+			if (lem->started > 0)
+				first_move_super(lem, ant, sum_paths, ln);
 		}
 		write(1, "\n", 1);
 		total++;
 	}
-	kill_all_the_ants(ant);
-	kill_all_the_ants(ant2);
-ft_printf("{n}\n");
-	ft_printf("{magenta}TOTAL LEN OF PATHS : %d\n", total);
+	clean_print(ant, total);
 }

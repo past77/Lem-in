@@ -14,8 +14,8 @@
 
 static int		llen_of_nbr(long n)
 {
-	int		len;
-	long	tmp;
+	int			len;
+	long		tmp;
 
 	len = 0;
 	tmp = n;
@@ -29,9 +29,9 @@ static int		llen_of_nbr(long n)
 	return (len);
 }
 
-size_t				len_nbr(intmax_t nb)
+size_t			len_nbr(intmax_t nb)
 {
-	size_t i;
+	size_t		i;
 
 	i = 1;
 	while (nb /= 10)
@@ -39,7 +39,7 @@ size_t				len_nbr(intmax_t nb)
 	return (i);
 }
 
-int		ft_puchar(char c)
+int				ft_puchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
@@ -47,9 +47,9 @@ int		ft_puchar(char c)
 
 char			*ft_ltoa(long n)
 {
-	long	tmp;
-	int		len;
-	char	*str;
+	long		tmp;
+	int			len;
+	char		*str;
 
 	tmp = n;
 	if (n == 0)
@@ -71,4 +71,3 @@ char			*ft_ltoa(long n)
 		str[0] = '-';
 	return (str);
 }
-

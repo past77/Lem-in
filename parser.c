@@ -84,7 +84,6 @@ int					parse_room(char *input, t_lemin *lem)
 	char			**split;
 	int				x;
 	int				y;
-
 	if (ft_lenspc(input, ' ') != 2)
 		return (0);
 	split = ft_strsplit(input, ' ');
@@ -95,6 +94,7 @@ int					parse_room(char *input, t_lemin *lem)
 	if (x == -25678 || x == 25678 || y == -25678 || y == 25678)
 		errors('n', lem);
 	ft_lstadd(&lem->room, ft_lstnew_link(new_elem(split[0]), 8));
+	ft_lstadd(&lem->r,ft_lstnew_link(ft_strdup(split[0]), 8));
 	clear_split(split);
 	return (1);
 }

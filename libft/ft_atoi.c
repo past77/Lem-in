@@ -12,10 +12,10 @@
 
 #include "./includes/libft.h"
 
-int	ft_atoi(const char *str)
+int					ft_atoi(const char *str)
 {
 	int				i;
-	int	minus;
+	int				minus;
 	int long long	res;
 
 	i = 0;

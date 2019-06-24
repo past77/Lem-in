@@ -45,7 +45,6 @@ void		ft_lstiter4(t_lemin *lem, t_lemin *param1,
 {
 	t_list *temp;
 
-
 	if (!f)
 		return ;
 	temp = lem->room;
@@ -76,13 +75,6 @@ t_list		*ft_lst_reverse(t_list *head)
 	}
 	return (new);
 }
-
-// static void	test_del(void *data, size_t noth)
-// {
-// 	(void)noth;
-// 	if (data)
-// 		free(data);
-// }
 
 void		find_paths(t_lemin *end_dot, int similar, t_lemin *lem)
 {

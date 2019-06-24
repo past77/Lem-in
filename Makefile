@@ -19,7 +19,7 @@ LEM_H = lem_in.h
 
 SRC = main.c start_alg.c lists.c middle_algo.c end_algo.c print_results.c \
 print_ants.c err_and_clear.c parser.c func_for_parse.c parse_for_ways.c \
-lists_for_algo.c lists2.c sort_list.c print_ants2.c others.c
+lists_for_algo.c lists2.c sort_list.c print_ants2.c others.c help_print.c
 
 OBJ = $(SRC:.c=.o)
 

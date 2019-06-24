@@ -21,7 +21,7 @@ void		print_move(t_lemin *lem, t_ant *ant, char c)
 		ft_printf("{cyan}L%ld-%s{-} ", ant->ant, name_t);
 	else if (c == 'm')
 		ft_printf("{yellow}L%ld-%s{-} ", ant->ant, name_t);
-	 else if (c == 'f')
+	else if (c == 'f')
 		ft_printf("{yellow}L%ld-%s{-} ", ant->ant, name_t);
 }
 
@@ -42,7 +42,7 @@ void		first_move(t_lemin *lem, t_ant *ant, int sp, int *ln)
 	}
 }
 
-void			try_first_move(t_lemin *lem, t_ant **ant, int *moved, int *y)
+void		try_first_move(t_lemin *lem, t_ant **ant, int *moved, int *y)
 {
 	(*ant)->y = *y;
 	(*ant)->x++;
@@ -50,18 +50,6 @@ void			try_first_move(t_lemin *lem, t_ant **ant, int *moved, int *y)
 	(*moved)++;
 	lem->started--;
 	(*ant) = (*ant)->next;
-}
-
-void			try_first_move_super(t_lemin *lem, t_ant **ant2, int *moved, int *y)
-{
-	int *moved2;
-
-	moved2 = moved;
-	(*ant2)->y = *y;
-	(*ant2)->x++;
-	(*moved2)++;
-	lem->started--;
-	(*ant2) = (*ant2)->next;
 }
 
 void		move_along(t_lemin *lem, t_ant *ant, int *ln, t_ways *ways)
@@ -86,27 +74,8 @@ void		move_along(t_lemin *lem, t_ant *ant, int *ln, t_ways *ways)
 	}
 }
 
-void		first_move_super(t_lemin *lem, t_ant *ant2, int sp, int *ln)
-{
-	int		y;
-	int		moved2;
-
-
-	while (ant2->next && (ant2->y == -2 || ant2->y > -1))
-		ant2 = ant2->next;
-	moved2 = 0;
-	y = 0;
-	while (y < sp && moved2 < sp && ant2 && lem->num_ants)
-	{
-		if (norm_way(lem, y, ln))
-			try_first_move_super(lem, &ant2, &moved2, &y);
-		y++;
-	}
-}
-
 void		move_along_super(t_lemin *lem, t_ant *ant2, int *ln2)
 {
-
 	while (ant2)
 	{
 		if (ant2->y >= 0)
